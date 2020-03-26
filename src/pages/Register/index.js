@@ -1,11 +1,20 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi'
 import './styles.css';
 
+import { handleRegister, handleOnChange } from './handlers';
+
 import logoImg from '../../assets/logo.svg';
 
-const Register = () => {
+export const Register = () => {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [whatsapp, setWhatsapp] = useState('');
+    const [city, setCity] = useState('');
+    const [uf, setUf] = useState('');
+    const history = useHistory();
+
     return (
         <div className="register-container">
             <div className="content">
@@ -21,14 +30,41 @@ const Register = () => {
                     Não tenho cadastro
                 </Link>
                 </section>
-                <form>
-                    <input placeholder="Nome da ONG" />
-                    <input type="email" placeholder="E-mail" />
-                    <input placeholder="WhatsApp"/>
+                <form onSubmit={handleRegister({name, email, whatsapp, city, uf}, history)}>
+                    <input 
+                        placeholder="Nome da ONG" 
+                        value={name}
+                        onChange={handleOnChange(setName)}
+                        required
+                    />
+                    <input 
+                        type="email" 
+                        placeholder="E-mail" 
+                        value={email}
+                        onChange={handleOnChange(setEmail)}
+                        required
+                    />
+                    <input 
+                        placeholder="WhatsApp"
+                        value={whatsapp}
+                        onChange={handleOnChange(setWhatsapp)}
+                        required
+                    />
 
                     <div className="input-group">
-                        <input placeholder="Cidade" />
-                        <input placeholder="UF" style={{width: 80, }} />
+                        <input 
+                            placeholder="Cidade" 
+                            value={city}
+                            onChange={handleOnChange(setCity)}
+                            required
+                        />
+                        <input 
+                            placeholder="UF" 
+                            style={{width: 80, }} 
+                            value={uf}
+                            onChange={handleOnChange(setUf)}
+                            required
+                        />
 
                     </div>
 
